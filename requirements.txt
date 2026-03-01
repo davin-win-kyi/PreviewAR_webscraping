@@ -1,0 +1,16 @@
+# requirements.txt
+# Core
+openai>=1.40.0
+python-dotenv>=1.0.1
+
+# HTTP + HTML parsing
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+tldextract>=5.1.0
+
+# Selenium (scraping + bot-handling flows)
+selenium>=4.18.0
+
+# Image download/convert (for saving best_image.png)
+pillow>=10.0.0
