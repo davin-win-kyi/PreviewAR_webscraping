@@ -2,20 +2,21 @@
 """
 select_best_product_image.py
 
-UPDATED to support new JSON structure:
+UPDATED to:
+- Benchmark runtime per item (seconds)
+- Write outputs/runtimes.json with:
+    {
+      "runtimes": [{"link":..., "object_type":..., "runtime_sec":..., "status":"ok|fail"}],
+      "average_runtime_sec": <float|null>
+    }
 
+Input JSON:
 {
   "furniture": [
     {"link": "...", "object_type": "mug"},
     {"link": "...", "object_type": "couch"}
   ]
 }
-
-Changes:
-- read_links_from_json() -> read_furniture_from_json()
-- main loop now iterates items with (url, object_type)
-- get_best_image_url() accepts object_type and includes it in output JSON
-- output folder name includes object_type prefix for easier browsing
 """
 
 from __future__ import annotations
@@ -26,6 +27,7 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
 from urllib.parse import urlparse
@@ -67,6 +69,25 @@ if not OPENAI_API_KEY:
     sys.exit(1)
 
 client = OpenAI(api_key=OPENAI_API_KEY)
+
+
+def normalize_input_url(u: str) -> str:
+    """
+    Ensure Selenium gets a valid absolute URL.
+    Fixes common cases like 'amazon.com/...' -> 'https://www.amazon.com/...'
+    """
+    u = (u or "").strip()
+    if not u:
+        return u
+    if u.startswith("http://") or u.startswith("https://"):
+        return u
+    if u.startswith("amazon.com/"):
+        return "https://www." + u
+    if u.startswith("www.amazon.com/"):
+        return "https://" + u
+    if u.startswith("www."):
+        return "https://" + u
+    return "https://" + u
 
 
 def normalize_url_list(urls: List[str], max_images: Optional[int] = None) -> List[str]:
@@ -189,8 +210,6 @@ def choose_dimensions_with_gpt(
     potential_dimension_values: List[str],
     model: str = "gpt-5",
 ) -> Dict[str, Optional[float]]:
-    print("Potential Dimensions for GPT:", potential_dimension_values)
-
     client_local = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     user = (
@@ -235,15 +254,12 @@ def choose_dimensions_with_gpt(
     def _num(x):
         return None if x is None else float(x)
 
-    result = {
+    return {
         "length": _num(data.get("length")),
         "width": _num(data.get("width")),
         "height": _num(data.get("height")),
         "source_string": data.get("source_string"),
     }
-
-    print("GPT Dimensions Output:", result)
-    return result
 
 
 def save_best_image(image_url: str, out_path: str | Path = "best_image.png") -> str:
@@ -292,17 +308,14 @@ def get_best_image_url(
     if not isinstance(seed_names, list):
         seed_names = [str(seed_names)]
 
-    # 2) Scrape
     scrape_payload = scrape_main(url, company)
 
+    # common scraper formats: tuple/list/dict/str
     if isinstance(scrape_payload, tuple) and len(scrape_payload) > 0:
         scrape_payload = scrape_payload[0]
-
-    # If scraper returns a list, take first
     if isinstance(scrape_payload, list) and scrape_payload:
         scrape_payload = scrape_payload[0]
 
-    # Now parse into dict
     if isinstance(scrape_payload, str):
         data = json.loads(scrape_payload)
     elif isinstance(scrape_payload, dict):
@@ -373,16 +386,6 @@ def get_best_image_url(
 
 
 def read_furniture_from_json(path: str | Path) -> List[Dict[str, str]]:
-    """
-    Reads new format:
-    {
-      "furniture": [
-        {"link": "...", "object_type": "..."},
-        ...
-      ]
-    }
-    Returns a list of dicts: [{"link": str, "object_type": str}, ...]
-    """
     p = Path(path)
     if not p.exists():
         raise FileNotFoundError(f"JSON file not found: {p}")
@@ -402,7 +405,9 @@ def read_furniture_from_json(path: str | Path) -> List[Dict[str, str]]:
         link = it.get("link")
         obj = it.get("object_type")
         if isinstance(link, str) and link.strip() and isinstance(obj, str) and obj.strip():
-            cleaned.append({"link": link.strip(), "object_type": obj.strip().lower()})
+            cleaned.append(
+                {"link": normalize_input_url(link.strip()), "object_type": obj.strip().lower()}
+            )
 
     if not cleaned:
         raise ValueError("No valid entries found in 'furniture' (need {link, object_type}).")
@@ -411,7 +416,6 @@ def read_furniture_from_json(path: str | Path) -> List[Dict[str, str]]:
 
 
 def safe_folder_name(url: str, object_type: Optional[str] = None) -> str:
-    # Prefix with object_type to keep the outputs organized
     prefix = (object_type or "item").strip().lower()
     u = re.sub(r"[^a-zA-Z0-9]+", "_", url)[:80].strip("_")
     return f"{prefix}__{u}"[:90]
@@ -447,12 +451,16 @@ if __name__ == "__main__":
     all_results: List[Dict[str, Any]] = []
     failures: List[Dict[str, Any]] = []
 
+    # --- NEW: runtime benchmarking ---
+    runtime_rows: List[Dict[str, Any]] = []
+
     for it in items:
         url = it["link"]
         object_type = it["object_type"]
 
         per_output_dir = output_root / safe_folder_name(url, object_type)
 
+        t0 = time.perf_counter()
         try:
             result = get_best_image_url(
                 url,
@@ -464,12 +472,24 @@ if __name__ == "__main__":
                 model=args.model,
                 save_result_json=not args.no_save_json,
             )
+            dt = time.perf_counter() - t0
+
+            # attach runtime to per-item result too (handy)
+            result["runtime_sec"] = dt
+
             all_results.append(result)
-            print(f"[OK] ({object_type}) {url}")
+            runtime_rows.append(
+                {"link": url, "object_type": object_type, "runtime_sec": dt, "status": "ok"}
+            )
+            print(f"[OK] ({object_type}) {url}  ({dt:.2f}s)")
 
         except Exception as e:
+            dt = time.perf_counter() - t0
             failures.append({"url": url, "object_type": object_type, "error": str(e)})
-            print(f"[FAIL] ({object_type}) {url}: {e}", file=sys.stderr)
+            runtime_rows.append(
+                {"link": url, "object_type": object_type, "runtime_sec": dt, "status": "fail", "error": str(e)}
+            )
+            print(f"[FAIL] ({object_type}) {url}: {e}  ({dt:.2f}s)", file=sys.stderr)
 
     aggregate = {
         "n_items": len(items),
@@ -481,5 +501,17 @@ if __name__ == "__main__":
 
     aggregate_path = output_root / "aggregate_results.json"
     aggregate_path.write_text(json.dumps(aggregate, indent=2, ensure_ascii=False))
-
     print(f"\nAggregate written to: {aggregate_path}")
+
+    # --- NEW: write runtimes.json ---
+    ok_times = [r["runtime_sec"] for r in runtime_rows if r.get("status") == "ok" and isinstance(r.get("runtime_sec"), (int, float))]
+    avg = (sum(ok_times) / len(ok_times)) if ok_times else None
+
+    runtimes_out = {
+        "runtimes": runtime_rows,
+        "average_runtime_sec": avg,
+    }
+
+    runtimes_path = output_root / "runtimes.json"
+    runtimes_path.write_text(json.dumps(runtimes_out, indent=2, ensure_ascii=False))
+    print(f"Runtimes written to: {runtimes_path}")

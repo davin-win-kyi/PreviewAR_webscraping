@@ -3,51 +3,31 @@
   "object_type": "couch",
   "company_name": "Amazon",
   "product_names": [
-    "accent chair",
-    "accent chairs",
-    "area rug",
-    "area rugs",
-    "armchair",
-    "armchairs",
     "armrest cover",
     "armrest covers",
     "back cushion",
     "back cushions",
     "blanket",
     "blankets",
+    "bolster pillow",
+    "bolster pillows",
     "chaise",
     "chaise lounge",
     "chaise lounges",
     "chaises",
-    "club chair",
-    "club chairs",
-    "coffee table",
-    "coffee tables",
-    "console table",
-    "console tables",
-    "convertible sofa",
-    "convertible sofas",
     "corner sofa",
     "corner sofas",
     "couch",
-    "couch cover",
-    "couch covers",
     "couches",
     "cushion",
     "cushions",
     "daybed",
     "daybeds",
-    "end table",
-    "end tables",
-    "floor lamp",
-    "floor lamps",
     "futon",
-    "futon cover",
-    "futon covers",
     "futons",
+    "l shaped sofa",
+    "l shaped sofas",
     "loveseat",
-    "loveseat cover",
-    "loveseat covers",
     "loveseats",
     "lumbar pillow",
     "lumbar pillows",
@@ -57,16 +37,8 @@
     "ottomans",
     "pillow",
     "pillows",
-    "pullout sofa",
-    "pullout sofas",
-    "recliner",
-    "recliners",
-    "reclining loveseat",
-    "reclining loveseats",
     "reclining sofa",
     "reclining sofas",
-    "rug",
-    "rugs",
     "seat cushion",
     "seat cushions",
     "sectional",
@@ -75,8 +47,6 @@
     "sectionals",
     "settee",
     "settees",
-    "side table",
-    "side tables",
     "sleeper sofa",
     "sleeper sofas",
     "slipcover",
@@ -86,37 +56,33 @@
     "sofa beds",
     "sofa cover",
     "sofa covers",
-    "sofa table",
-    "sofa tables",
     "sofas",
-    "storage ottoman",
-    "storage ottomans",
-    "table lamp",
-    "table lamps",
     "throw",
     "throw blanket",
     "throw blankets",
     "throw pillow",
     "throw pillows",
     "throws",
-    "wingback chair",
-    "wingback chairs"
+    "u shaped sofa",
+    "u shaped sofas"
   ],
   "product_title": "Vesgantti 68\" Loveseat Sofa Black, Comfy Corduroy Couch with Spring Cushion and Solid Wood, Modern Extra Deep Seat for Bedroom, Living Room, Office",
-  "high_level_description": "A 68-inch Vesgantti corduroy loveseat with spring-supported cushions and an FSC-certified solid wood frame, designed as an extra-deep 2‑seater for bedrooms, living rooms, or offices. It features tool-free assembly, ergonomic armrests, non-slip leg backing, and supports up to 772 lb.",
+  "high_level_description": "A 68-inch corduroy-upholstered loveseat designed for living rooms, bedrooms, and offices, featuring spring-supported cushions and solid wood construction. It offers an extra-deep 21.3-inch seat, a 772 lb weight capacity, and tool-less easy assembly.",
   "attributes": {
     "color": "Black + Walnut Wood",
-    "material": "Corduroy fabric; solid wood (walnut)",
+    "material": "Corduroy fabric; Walnut wood; Foam",
     "style": "Mid-Century Modern",
     "seating_capacity": "2",
     "assembly_required": "Yes",
     "special_features": [
-      "Spring cushion",
-      "Extra deep seat (21.3 inches)",
       "FSC certified solid wood",
+      "Spring cushion support",
+      "Durable corduroy fabric",
+      "Extra deep 21.3-inch seat",
+      "Ergonomic armrests",
+      "Tool-less easy assembly",
       "Non-slip leg backing",
-      "Ergonomic support armrests",
-      "Tool-free assembly",
+      "Weight capacity 772 lb",
       "Removable cushion covers"
     ]
   },
@@ -124,7 +90,7 @@
     "length": 30.0,
     "width": 68.0,
     "height": 35.0,
-    "source_string": "30 in D x 68 in W x 35 in H"
+    "source_string": "30\" D x 68\" W x 35\" H"
   },
   "all_image_urls": [
     "https://m.media-amazon.com/images/I/81odCx4RqLL._AC_SL1500_.jpg",
@@ -135,34 +101,34 @@
     "https://m.media-amazon.com/images/I/81fj7B8C0bL._AC_SL1500_.jpg"
   ],
   "best_image": {
-    "image_url": "https://m.media-amazon.com/images/I/81odCx4RqLL._AC_SL1500_.jpg",
-    "reasoning": "Selects the clean, likely front-facing studio image where the couch is fully visible with no props in front. Other candidates either include lifestyle props that can partially block the sofa or show non-front/detail angles. Measurement overlays are acceptable but do not improve unobstruction over a plain studio shot.",
+    "image_url": "https://m.media-amazon.com/images/I/717MDUwJzJL._AC_SL1500_.jpg",
+    "reasoning": "Chose the image with zero occlusions. Among the zero-occlusion candidates, this one is front-facing, centered, and shows the entire couch; measurement overlays are acceptable. A close-up with zero occlusion was not chosen because it does not show the full couch.",
     "saved_path": "outputs/couch__https_www_amazon_com_Vesgantti_Loveseat_Sofa_Corduroy_Cushion_dp_B0G51Y2HW9_ref/best_image.png"
   },
   "scores": {
     "https://m.media-amazon.com/images/I/81odCx4RqLL._AC_SL1500_.jpg": {
-      "occlusion_score": 0,
-      "notes": "Studio-style product shot; couch appears fully in frame with no foreground objects."
+      "occlusion_score": 3,
+      "notes": "Lifestyle scene likely with a coffee table/props partially in front of the couch, creating noticeable occlusion."
     },
     "https://m.media-amazon.com/images/I/717MDUwJzJL._AC_SL1500_.jpg": {
-      "occlusion_score": 1,
-      "notes": "Likely a lifestyle scene; room props (e.g., coffee table/decor) may partially obscure the couch."
+      "occlusion_score": 0,
+      "notes": "Front-facing, centered shot with measurement overlay; no objects covering the couch and the entire couch is visible."
     },
     "https://m.media-amazon.com/images/I/81otU+VbffL._AC_SL1500_.jpg": {
-      "occlusion_score": 0,
-      "notes": "Measurement overlay image; no objects covering the couch (overlays are permitted)."
+      "occlusion_score": 2,
+      "notes": "Angled view with minor props (e.g., throw/blanket or decor) touching/covering part of the couch."
     },
     "https://m.media-amazon.com/images/I/81xbZRCsynL._AC_SL1500_.jpg": {
       "occlusion_score": 0,
-      "notes": "Clean alternate angle on plain background; no occluding objects but not as front-facing."
+      "notes": "Detail/close-up crop with no occluding objects, but the full couch is not in frame (used as a tiebreaker against it)."
     },
     "https://m.media-amazon.com/images/I/81wjFh4s-GL._AC_SL1500_.jpg": {
-      "occlusion_score": 0,
-      "notes": "Detail/cropped view; no occluding objects, but not the entire couch in frame."
+      "occlusion_score": 1,
+      "notes": "Mostly unobstructed; minor soft goods (pillows/throw) present that slightly cover surfaces."
     },
     "https://m.media-amazon.com/images/I/81fj7B8C0bL._AC_SL1500_.jpg": {
       "occlusion_score": 1,
-      "notes": "Likely a lifestyle image with foreground decor that can cover the lower/front area of the couch."
+      "notes": "Clean studio shot but includes decorative pillows/soft goods that lightly occlude parts of the seat/back."
     }
   }
 }
