@@ -1,0 +1,137 @@
+{
+  "url": "https://amazon.com/Zinus-Mattress-Fiberglass-Pressure-Certified/dp/B0CKYZCVXK/ref=sr_1_8?crid=11NYQU022ED58&dib=eyJ2IjoiMSJ9.vMFYaPsGLMq_zU263W5SE8PvlxkSW_qo1D3vHgzJuFBHH0fKLbPqbY2a5rCzXB6bkmdafup-sCH-AL0cHoG4UcZM8yqHQu2iRGpPi9z98kimqbpD_z5vrPFp7RhNpdHu9_5DQHEREHPkDvHdnpYQm3lUKC-OC_qGvKwWDmF3QiFrMBUKuRTcJwR_22j4eLfjshArwewB1_lREf6PgmMOBVra_EAf-z9ZQ-mhFZwLHPYZhfG2r9S1bewCUoaoEt6V1qC2Gxn2j_WBKT_I7Culi9QEzZ2TMIqyez3xJpUCX7I.8bT1_iFYn4zmbafcvCIgyKqTvEH87zyuugChYEGaqcY&dib_tag=se&keywords=bed&qid=1772342341&sprefix=%2Caps%2C335&sr=8-8",
+  "object_type": "bed",
+  "company_name": "Amazon",
+  "product_names": [
+    "air mattress",
+    "air mattresses",
+    "bed base",
+    "bed bases",
+    "bed foundation",
+    "bed foundations",
+    "bed frame",
+    "bed frames",
+    "bed sheet",
+    "bed sheets",
+    "bed skirt",
+    "bed skirts",
+    "bed slats",
+    "bedding set",
+    "bedding sets",
+    "bedspread",
+    "bedspreads",
+    "blanket",
+    "blankets",
+    "box spring",
+    "box springs",
+    "comforter",
+    "comforters",
+    "coverlet",
+    "coverlets",
+    "crib mattress",
+    "crib mattresses",
+    "duvet",
+    "duvets",
+    "fitted sheet",
+    "fitted sheets",
+    "flat sheet",
+    "flat sheets",
+    "footboard",
+    "footboards",
+    "futon mattress",
+    "futon mattresses",
+    "headboard",
+    "headboards",
+    "mattress",
+    "mattress cover",
+    "mattress covers",
+    "mattress encasement",
+    "mattress encasements",
+    "mattress pad",
+    "mattress pads",
+    "mattress protector",
+    "mattress protectors",
+    "mattress topper",
+    "mattress toppers",
+    "mattresses",
+    "pillow",
+    "pillow protector",
+    "pillow protectors",
+    "pillow sham",
+    "pillow shams",
+    "pillowcase",
+    "pillowcases",
+    "pillows",
+    "quilt",
+    "quilts",
+    "sheet set",
+    "sheet sets",
+    "throw blanket",
+    "throw blankets"
+  ],
+  "product_title": "Zinus 6 Inch Twin Green Tea Memory Foam Mattress [New Version], Fiberglass Free, Medium Firm Feel, Zoned Pressure Relief, Certified Safe Foams & Fabric, Mattress in A Box",
+  "high_level_description": "Twin-size 6-inch memory foam mattress designed for pressure relief and comfortable support. It is fiberglass-free, infused with green tea and charcoal to help keep it fresh, and uses CertiPUR-US certified foam with an OEKO-TEX certified cover; ships compressed in a box.",
+  "attributes": {
+    "color": "White",
+    "material": "High Density Foam, Memory Foam (polyester cover)",
+    "style": "6\"",
+    "seating_capacity": null,
+    "assembly_required": null,
+    "special_features": [
+      "Fiberglass free",
+      "Medium firm feel",
+      "Zoned pressure relief",
+      "Green tea and purified charcoal infusions",
+      "CertiPUR-US certified foam",
+      "OEKO-TEX certified cover",
+      "Mattress in a box",
+      "Tight Top",
+      "10-year limited warranty"
+    ]
+  },
+  "dimensions": {
+    "length": 75.0,
+    "width": 39.0,
+    "height": 6.0,
+    "source_string": "75 x 39 x 6 in"
+  },
+  "all_image_urls": [
+    "https://m.media-amazon.com/images/I/81iqbMLF80L._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/51tSgcjX66L._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/81ReXzyw8oL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/81At4sTKrYL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/81hZfx6e6KL._AC_SL1500_.jpg",
+    "https://m.media-amazon.com/images/I/71Z-y86VoEL._AC_SL1500_.jpg"
+  ],
+  "best_image": {
+    "image_url": "https://m.media-amazon.com/images/I/81iqbMLF80L._AC_SL1500_.jpg",
+    "reasoning": "Chose the first image as the likely hero shot showing the mattress fully and unobstructed. Other images appear to include lifestyle elements (pillows/blankets/people), packaging, or close-up/cutaway views. A measurement overlay (if present) is acceptable but still secondary to a clean, full-object hero.",
+    "saved_path": "outputs/bed__https_amazon_com_Zinus_Mattress_Fiberglass_Pressure_Certified_dp_B0CKYZCVXK_ref/best_image.png"
+  },
+  "scores": {
+    "https://m.media-amazon.com/images/I/81iqbMLF80L._AC_SL1500_.jpg": {
+      "occlusion_score": 0,
+      "notes": "Full mattress view with no objects covering it; centered/front-facing hero."
+    },
+    "https://m.media-amazon.com/images/I/51tSgcjX66L._AC_SL1500_.jpg": {
+      "occlusion_score": 3,
+      "notes": "Packaging/rolled presentation likely obscures the mattress in its in-use form."
+    },
+    "https://m.media-amazon.com/images/I/81ReXzyw8oL._AC_SL1500_.jpg": {
+      "occlusion_score": 2,
+      "notes": "Lifestyle setup with pillows/blanket partially covering the mattress surface."
+    },
+    "https://m.media-amazon.com/images/I/81At4sTKrYL._AC_SL1500_.jpg": {
+      "occlusion_score": 1,
+      "notes": "Cutaway/layer or close-up view; minimal obstruction but not a full unobstructed product view."
+    },
+    "https://m.media-amazon.com/images/I/81hZfx6e6KL._AC_SL1500_.jpg": {
+      "occlusion_score": 3,
+      "notes": "Likely lifestyle with a person or heavy bedding obscuring the mattress."
+    },
+    "https://m.media-amazon.com/images/I/71Z-y86VoEL._AC_SL1500_.jpg": {
+      "occlusion_score": 0,
+      "notes": "Unobstructed mattress with possible measurement overlay only (allowed). Tie broken in favor of the hero image for centering/full-object presentation."
+    }
+  }
+}

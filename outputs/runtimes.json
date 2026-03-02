@@ -1,0 +1,65 @@
+{
+  "runtimes": [
+    {
+      "link": "https://www.amazon.com/Urbanstrive-Coffee-Dreamer-Nothing-Novelty/dp/B08TCDT1TQ/ref=sr_1_4_sspa?crid=2D0UW7V72YRHC&dib=eyJ2IjoiMSJ9.QeaxBbP1ERPFbkKEzyFA3PqBBcq_P_0CaFuGOH1fOqoya0urwOQRxJ7_5eMaih5Awzx1oNLYsNKgRKqlXjGyBSrVd-6XlSwms9saTzfyBn1F61btZ6yFNP8zIOg4FvXLn_7chrHLJlQ8Oh6JFzkOiXEeIl1BDzFFKcqgvlIBVW1yORomAiAPUCALairM-hOpFQbziUiN2ou-30tJ2ZuT5st1L-_aH6baX8_cAOBEJ-1E3-lPJu_XMjvHN7EHp6G0zQcLZesaec3SHpVgLeyL9EPILLCGMpuMXS0ZphgvGX4.cEhN-eHN1Jg71mVASTb5q8ZySRsrySwEA4UezND3SI8&dib_tag=se&keywords=mug&qid=1772342202&sprefix=mu%2Caps%2C177&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
+      "object_type": "mug",
+      "runtime_sec": 204.809512250009,
+      "status": "ok"
+    },
+    {
+      "link": "https://www.amazon.com/Vesgantti-Loveseat-Sofa-Corduroy-Cushion/dp/B0G51Y2HW9/ref=sr_1_2_sspa?crid=16OG9XW4XRWDL&dib=eyJ2IjoiMSJ9.UdHe6q0IoOw2_M65uQvxHIjb4eSuYRNUYUYz8AknPdRoqz5wQGhTODdUPT_PN-aeqkL4oypDEPGcf9OGwgQkE1pw7iuwEXxCi75mVJSQbfhbo36DhY6PV8jxA_O3p9vvxB2l-J5f-QqJFwurSD87RaYxDGXvem19EHa1NLkPimbKsRWuLC_vzCECbGg8OzHvvjn4HGC9gomvdJN6CCqlbiIOKzU767SDcFqjZMtf-at93L5f4wWd_ScJJ_UQFEFw8BgZo9KCTxI8iHLIqtmTTghJh-ziEgvUgMMbKInKjWc.IzTB9PxPCdbxafO5e0A7hdi3Ur1pRcthg0XEaP2JDyQ&dib_tag=se&keywords=couch&qid=1772342236&sprefix=couc%2Caps%2C185&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
+      "object_type": "couch",
+      "runtime_sec": 236.17964650000795,
+      "status": "ok"
+    },
+    {
+      "link": "https://amazon.com/HSH-Industrial-Farmhouse-Executive-Workstation/dp/B0BWN88YRK/ref=sr_1_1_sspa?crid=1B5W7ZD80YKGO&dib=eyJ2IjoiMSJ9.SX-0G3uVdW2tted-HPWbmX6RtxiY6kFLNjSy_4osTxudxpDf84qxFav7pLQEkI5MwVbDOwgeDOM0BqPGpmNE7KfNjN5GIxcS_xo9fGIloNZYZfqmNcUMGoX-hHbT1PZqZURSFmgf22H_bnEW7bFXsr6eJeOosJGZylzBTJAwbmoo68LXQeLMa8DK00r-LJShqt1xJJOzPQN8JguKV--JImC3w66jmirRiApHyHE4WF7fhmvC-5xA9_DgObvU6pTxHWZU_iG1iDfhclhsup6MWoNHVHtOSADaHd7lb6G2XC8.p0l_44q1RELZze0A4JTIsNVA0k3lU4CFXGDoJZQQsJs&dib_tag=se&keywords=table&qid=1772342256&sprefix=table%2Caps%2C189&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
+      "object_type": "table",
+      "runtime_sec": 251.39747050000005,
+      "status": "ok"
+    },
+    {
+      "link": "https://amazon.com/EDISHINE-Lampshade-Nightstand-Bedside-Nursery/dp/B0BZTT3MKR/ref=sr_1_3_sspa?crid=2B3K519EM5772&dib=eyJ2IjoiMSJ9._pJtB6Vw5BW-H0MaeLgZEQ2cudcDJyipFZUhlZeQghxcJl0hY8eBW1FysBYruxc5CYku6ad-IvABbWVh9cIqZi9OA7XT3BwU_A9ZU8rGSf8C8YPVsJu7akCSFiF22o9x_0_WUg-BJMA6coMgoFz9xKopCykJiBsj2iJZaa6DWxviTT41IYiKMDh1aVcq6Kd-NcMLwyVYA5uRLrnN7bKq4ECk-VXAE0p46hGbJnzfzjUeGpyGFApnSqNgBfB_seRiVlqymnE9js6hB5VNLmzAltqI-c3Bdf6Uwk8dGajxBqc.W5fw7UgWvme6xgyDgC6nPsqIs1UgD7imhAdeX7e3iYs&dib_tag=se&keywords=lamp&qid=1772342277&sprefix=lam%2Caps%2C222&sr=8-3-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
+      "object_type": "lamp",
+      "runtime_sec": 276.09278199999244,
+      "status": "ok"
+    },
+    {
+      "link": "https://amazon.com/DUMOS-Wheels-Armless-Adjustable-Computer/dp/B0FN43HSW6/ref=sr_1_1?crid=3NXDFITVC7UU3&dib=eyJ2IjoiMSJ9.r11lcwNZKeS-0b9Rxq_o--xaUFdlvD6HYrLrOQYhhywwRG6TgxIWZxxzHBmpSvNa0UpelpqoNCISd7VFeyg7KWP0TolpTxi8M-116OGVNR5WYIoChmLBF-lC1BWID2iuXVAWkBXXMpQQ9PwmLseAWYlIIVqixFbIr5mOu4N3MRJgQTsDhVteTluHXN3rFMEm_UFrYeMstnJI4MUehbh5G9aJS2U-Zsfdq0E1ht4q4E3CXLi3lDCEFlHq4rtfPPszKvS8FwI6_B3uVEDKf0VwoDGFF8XIQiKHTH2XRCHuyB0.EBttnStjrbgrFqbRqKV_HXAzPYVJ-nc1-KOKFTwsTuc&dib_tag=se&keywords=chair&qid=1772342304&sprefix=chai%2Caps%2C181&sr=8-1",
+      "object_type": "chair",
+      "runtime_sec": 278.7789566249994,
+      "status": "ok"
+    },
+    {
+      "link": "https://amazon.com/SJSCYD-Artificial-Dracaena-Planter-Housewarming/dp/B0DJ2XWB79/ref=sr_1_2_sspa?crid=2SQ6ILORX4LSY&dib=eyJ2IjoiMSJ9.kmHvqpsju6ynhFQMuaL4bu3qTC79v8kPHPMD5L9Ctb7SXtIkwZ1WK9HmiAbYg_aGgvSUffN3I9F3S55BxtcpVg8g7xIQWe3gyj_lQFvYGSYY-UYJgMEnHLHyfIDHzdmcaIqtUXchg_ex0D0sA4UzP-xjrmW11Lo1KvezT10EwuJNXnpUuM7ay3Ez_DpPPRrTOFG0aPk-AJRWq2wkWvgYqZ-clP5c4MK6kq7XfJuTJwxdG-uGoOsc3ZDAnk82OOe_iwVNkZexEuTY49PLHolVY99Ij5UXHPM_9n6ZFpn1m6w.KHEzm_-eyqwlsuiaT1OMxUsPFW1tQ8wWTZ8UB3m9LeE&dib_tag=se&keywords=plant&qid=1772342322&sprefix=pla%2Caps%2C275&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
+      "object_type": "plant",
+      "runtime_sec": 223.48880095800268,
+      "status": "ok"
+    },
+    {
+      "link": "https://amazon.com/Zinus-Mattress-Fiberglass-Pressure-Certified/dp/B0CKYZCVXK/ref=sr_1_8?crid=11NYQU022ED58&dib=eyJ2IjoiMSJ9.vMFYaPsGLMq_zU263W5SE8PvlxkSW_qo1D3vHgzJuFBHH0fKLbPqbY2a5rCzXB6bkmdafup-sCH-AL0cHoG4UcZM8yqHQu2iRGpPi9z98kimqbpD_z5vrPFp7RhNpdHu9_5DQHEREHPkDvHdnpYQm3lUKC-OC_qGvKwWDmF3QiFrMBUKuRTcJwR_22j4eLfjshArwewB1_lREf6PgmMOBVra_EAf-z9ZQ-mhFZwLHPYZhfG2r9S1bewCUoaoEt6V1qC2Gxn2j_WBKT_I7Culi9QEzZ2TMIqyez3xJpUCX7I.8bT1_iFYn4zmbafcvCIgyKqTvEH87zyuugChYEGaqcY&dib_tag=se&keywords=bed&qid=1772342341&sprefix=%2Caps%2C335&sr=8-8",
+      "object_type": "bed",
+      "runtime_sec": 174.02365954199922,
+      "status": "ok"
+    },
+    {
+      "link": "https://www.amazon.com/Ceramic-GUKJOB-Flowers-Decorative-Farmhouse/dp/B0C6JHS1JL/ref=sr_1_6?crid=2E89ZXKZK74EW&dib=eyJ2IjoiMSJ9.u1gP8JUHb6b9obU8oO1l7MHH3zMRc_VjywlmkY_1q2wjka5s4TRcSjUIJK4ealUHLSlFZFyWwgESViihBGanDRuVVPJRW8J3F0Xxkb2m2Z-FnmvFf_5_y570VpE_lsOvzbUxmLLkiin6GWYJJraUhKGg4updD6xuE7eurjMFTbnG79ziLtHube4kTnQvFPqZ-GfUT4yiUB1CdwZkfQvUWdrb72XZ7Bt6NXCQsJr_95RFpeBncRs-qztWPYYEF34pBmzgYdgjw8_xd2WmPW697XWlbJi4xQSc27fXe6bHhEQ.c36DX5NesAFuI99bTmnNN1dTt8CABkROnrkeLZYInxM&dib_tag=se&keywords=vases&qid=1772342372&sprefix=vases%2Caps%2C200&sr=8-6&th=1",
+      "object_type": "vase",
+      "runtime_sec": 203.38495645899093,
+      "status": "ok"
+    },
+    {
+      "link": "https://amazon.com/YMXYJM-Pedestal-Decorative-Kitchen-Entryway/dp/B0DWWR16DM/ref=sr_1_4_sspa?crid=NYBCN25J2X7H&dib=eyJ2IjoiMSJ9.TvA12FqQJtMz-uzp6c_u0mfLHSgnaptkKGybHbdwigDedCldCH6cRYo_MnbL6ccJbyRN6-XjqC0fK8XALxlelrq4UWdM7BRr96ZD3qUEcovcEBNceVJzphCO5u6Fih2h6W81GXHHunlBpW3mtEskIJ3ZwBXz5vPYgh9nQJddIJCUJu5VAACqL7--NTxFLOFmwkiNxDhReAl5-PD7NvXhr2-Zw2Gmmjg_IsF0QSWWzy2K21sZS80EY05wuHEclYV2cr-zyqkIF4v1vmRLozfkGADHC60DgJWN6KF4_FaIufY.eYl4Qydh8v2cvKG0_6puGanntnGn0FEftsS8NbeTENg&dib_tag=se&keywords=bowl&qid=1772342442&sprefix=bowl%2Caps%2C199&sr=8-4-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1",
+      "object_type": "bowl",
+      "runtime_sec": 195.44342754097306,
+      "status": "ok"
+    },
+    {
+      "link": "https://www.amazon.com/VASAGLE-Bathroom-Adjustable-Freestanding-UBCB060C01/dp/B0C3H36NVJ/ref=sr_1_6?crid=2HZCEBVHM2NCI&dib=eyJ2IjoiMSJ9.YFuPbJxk9ctKOVEgnJ0dwgclue8RlA8YgU3OziKa9jG-pZ_mISvA-Ajoj8J00eNg5tKU_tshX3gjTFRra1eJV_wVYOMTr_j_B0pfAodex_t9JruOk_GaYMOZ5Iw615KvTqU2olLnl0RRG9bb0znS-t6NvaOn5dLavXGQhutODZQGIkbqOoKRd9mkrXg6roGBDg_-x0K7mZRc8Q5T_wdPiwGf_3W6JbIKQd0l4sLrKNhw3UkE7EOC6mxH7-W9ripjbJqN06voQG3TnijM0POqyg0cib9twPRY60FtB790LqY.zMq0Wt_kl2L_MhTlxDQqGWU3jdMjaZ2PYTUhFSac-iE&dib_tag=se&keywords=cabinet&qid=1772342465&sprefix=cabinet%2Caps%2C190&sr=8-6&th=1",
+      "object_type": "cabinet",
+      "runtime_sec": 833.6453353750112,
+      "status": "ok"
+    }
+  ],
+  "average_runtime_sec": 287.7244547749986
+}

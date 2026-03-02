@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-select_best_product_image.py
+select_product_metadata.py
 
 UPDATED to:
 - Benchmark runtime per item (seconds)
@@ -17,19 +17,24 @@ Input JSON:
     {"link": "...", "object_type": "couch"}
   ]
 }
+
+NOTE:
+- All "best image" logic has been removed:
+  - No image ranking
+  - No image downloading/saving
+  - We only keep the scraped image_urls list
 """
 
 from __future__ import annotations
 
 import argparse
-import io
 import json
 import os
 import re
 import sys
 import time
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Any, Dict, List, Optional
 from urllib.parse import urlparse
 
 # Optional: load .env if present
@@ -57,11 +62,8 @@ except ImportError:
     print("ERROR: Please `pip install openai`.", file=sys.stderr)
     raise
 
-import requests
-from PIL import Image
 
-MODEL_ALIAS_EXPANDER = "gpt-5"
-MODEL_IMAGE_RANKER = "gpt-5"
+MODEL_DIM_EXTRACTOR = "gpt-5"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
@@ -110,108 +112,21 @@ def normalize_url_list(urls: List[str], max_images: Optional[int] = None) -> Lis
     return cleaned
 
 
-def expand_product_aliases_via_gpt5(seed_names: List[str]) -> List[str]:
-    if not seed_names:
-        return []
-
-    prompt = (
-        "You are helping expand concise product nouns for ranking images.\n"
-        "Rules:\n"
-        " - Return ONLY a JSON array of short names.\n"
-        " - Include plural/singular variants if common (e.g., 'sofa','sofas').\n"
-        " - Include things that you may also have with the object. For example couches may have pillows.\n"
-        " - Exclude brands, model numbers, materials unless essential to identity.\n"
-        " - Keep each item <= 3 words. No duplicates. Lowercase.\n\n"
-        f"Seed names: {seed_names}\n"
-    )
-
-    resp = client.chat.completions.create(
-        model=MODEL_ALIAS_EXPANDER,
-        messages=[
-            {"role": "system", "content": "You are a precise, terse product taxonomy assistant."},
-            {"role": "user", "content": prompt},
-        ],
-    )
-
-    content = (resp.choices[0].message.content or "").strip()
-
-    aliases: List[str] = []
-    try:
-        obj = json.loads(content)
-        if isinstance(obj, list):
-            aliases = obj
-        elif isinstance(obj, dict):
-            for v in obj.values():
-                if isinstance(v, list):
-                    aliases = v
-                    break
-    except Exception:
-        aliases = []
-
-    pool = {s.strip().lower() for s in seed_names if isinstance(s, str) and s.strip()}
-    for a in aliases:
-        if isinstance(a, str) and a.strip():
-            pool.add(a.strip().lower())
-
-    return sorted(pool)
-
-
-def rank_images_with_gpt5(
-    image_urls: List[str],
-    product_names: List[str],
-    dimensions: Optional[Dict[str, Any]] = None,
-    object_type: Optional[str] = None,
-) -> Dict[str, Any]:
-    if not image_urls:
-        return {"image_url": None, "reasoning": "No images provided.", "scores": {}}
-
-    instruction = (
-        "You are ranking candidate product images by how unobstructed the MAIN object is.\n"
-        "Consider the product identity from the provided names and (optionally) the object_type.\n"
-        "Measurement overlays are permitted.\n"
-        "Hard rules:\n"
-        " - Minimize objects covering/obscuring the main object (occlusions). Best is 0.\n"
-        " - If tie: prefer front-facing, centered, entire object in frame.\n"
-        " - Okay to have an image with measurement overlays.\n"
-        " - Output strictly in JSON with keys: best_image_url, reasoning, scores.\n"
-        "   Where 'scores' maps each URL to an object with: occlusion_score (integer; lower is better), notes.\n"
-    )
-
-    payload = {
-        "object_type": object_type or "",
-        "product_names": product_names,
-        "dimensions_hint": dimensions or {},
-        "image_urls": image_urls,
-    }
-
-    resp = client.chat.completions.create(
-        model=MODEL_IMAGE_RANKER,
-        messages=[
-            {"role": "system", "content": "You are a meticulous product image judge."},
-            {"role": "user", "content": instruction},
-            {"role": "user", "content": f"Payload:\n{json.dumps(payload, ensure_ascii=False)}"},
-        ],
-    )
-
-    content = (resp.choices[0].message.content or "").strip()
-    try:
-        data = json.loads(content)
-    except Exception:
-        data = {}
-
-    return {
-        "image_url": data.get("best_image_url"),
-        "reasoning": data.get("reasoning", ""),
-        "scores": data.get("scores", {}),
-    }
-
-
 def choose_dimensions_with_gpt(
     potential_dimension_values: List[str],
-    model: str = "gpt-5",
-) -> Dict[str, Optional[float]]:
-    client_local = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    model: str = MODEL_DIM_EXTRACTOR,
+) -> Dict[str, Optional[float | str]]:
+    """
+    Extract product/item dimensions (NOT package/shipping) from noisy strings.
 
+    Returns:
+      {
+        "length": float|null,
+        "width": float|null,
+        "height": float|null,
+        "source_string": str|null
+      }
+    """
     user = (
         "You are extracting product dimensions from noisy candidate strings.\n\n"
         "CANDIDATE STRINGS:\n"
@@ -241,7 +156,7 @@ def choose_dimensions_with_gpt(
         "}\n"
     )
 
-    resp = client_local.responses.create(
+    resp = client.responses.create(
         model=model,
         input=[{"role": "user", "content": user}],
     )
@@ -251,8 +166,13 @@ def choose_dimensions_with_gpt(
     except Exception:
         data = {}
 
-    def _num(x):
-        return None if x is None else float(x)
+    def _num(x: Any) -> Optional[float]:
+        if x is None:
+            return None
+        try:
+            return float(x)
+        except Exception:
+            return None
 
     return {
         "length": _num(data.get("length")),
@@ -262,41 +182,21 @@ def choose_dimensions_with_gpt(
     }
 
 
-def save_best_image(image_url: str, out_path: str | Path = "best_image.png") -> str:
-    if not image_url:
-        raise ValueError("image_url is empty.")
-
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
-        )
-    }
-    r = requests.get(image_url, headers=headers, timeout=20)
-    r.raise_for_status()
-
-    img = Image.open(io.BytesIO(r.content))
-    if img.mode not in ("RGB", "RGBA"):
-        img = img.convert("RGBA" if "A" in img.getbands() else "RGB")
-
-    out_path = Path(out_path)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(str(out_path), format="PNG", optimize=True)
-    return str(out_path)
-
-
-def get_best_image_url(
+def process_product_url(
     url: str,
     *,
     object_type: Optional[str] = None,
     max_images: int = 30,
     print_scrape: bool = False,
     output_dir: str | Path = "outputs",
-    best_image_filename: str = "best_image.png",
-    model: str = "gpt-5",
+    model: str = MODEL_DIM_EXTRACTOR,
     save_result_json: bool = True,
     result_json_filename: str = "selection_result.json",
 ) -> Dict[str, Any]:
+    """
+    Collect metadata + image URL list + dimensions.
+    (No best-image selection and no image downloads.)
+    """
     output_dir = Path(output_dir)
 
     info = extract_with_gpt5(url)
@@ -330,6 +230,7 @@ def get_best_image_url(
     high_level_description = data.get("high_level_description") or ""
     attributes = data.get("attributes") if isinstance(data.get("attributes"), dict) else {}
 
+    # ensure attribute keys exist (stable schema)
     attributes.setdefault("color", None)
     attributes.setdefault("material", None)
     attributes.setdefault("style", None)
@@ -344,38 +245,19 @@ def get_best_image_url(
         model=model,
     )
 
-    expanded_names = expand_product_aliases_via_gpt5(seed_names)
-
-    best = rank_images_with_gpt5(
-        image_urls,
-        expanded_names,
-        dims,
-        object_type=object_type,
-    )
-
     result: Dict[str, Any] = {
         "url": url,
         "object_type": object_type,
         "company_name": company,
-        "product_names": expanded_names,
+        "product_name_seeds": seed_names,  # kept as-is from extract_with_gpt5
         "product_title": product_title,
         "high_level_description": high_level_description,
         "attributes": attributes,
         "dimensions": dims,
         "all_image_urls": image_urls,
-        "best_image": {
-            "image_url": best.get("image_url"),
-            "reasoning": best.get("reasoning"),
-        },
-        "scores": best.get("scores", {}),
     }
 
     output_dir.mkdir(parents=True, exist_ok=True)
-
-    if best.get("image_url"):
-        out_img = output_dir / best_image_filename
-        saved_path = save_best_image(best["image_url"], out_img)
-        result["best_image"]["saved_path"] = str(saved_path)
 
     if save_result_json:
         out_json = output_dir / result_json_filename
@@ -431,11 +313,10 @@ if __name__ == "__main__":
     )
 
     parser.add_argument("--output-dir", default="outputs")
-    parser.add_argument("--best-image-filename", default="best_image.png")
     parser.add_argument("--max-images", type=int, default=30)
     parser.add_argument("--print-scrape", action="store_true")
     parser.add_argument("--no-save-json", action="store_true")
-    parser.add_argument("--model", default="gpt-5")
+    parser.add_argument("--model", default=MODEL_DIM_EXTRACTOR)
 
     args = parser.parse_args()
 
@@ -451,7 +332,7 @@ if __name__ == "__main__":
     all_results: List[Dict[str, Any]] = []
     failures: List[Dict[str, Any]] = []
 
-    # --- NEW: runtime benchmarking ---
+    # runtime benchmarking
     runtime_rows: List[Dict[str, Any]] = []
 
     for it in items:
@@ -462,11 +343,10 @@ if __name__ == "__main__":
 
         t0 = time.perf_counter()
         try:
-            result = get_best_image_url(
+            result = process_product_url(
                 url,
                 object_type=object_type,
                 output_dir=per_output_dir,
-                best_image_filename=args.best_image_filename,
                 max_images=args.max_images,
                 print_scrape=args.print_scrape,
                 model=args.model,
@@ -474,10 +354,9 @@ if __name__ == "__main__":
             )
             dt = time.perf_counter() - t0
 
-            # attach runtime to per-item result too (handy)
             result["runtime_sec"] = dt
-
             all_results.append(result)
+
             runtime_rows.append(
                 {"link": url, "object_type": object_type, "runtime_sec": dt, "status": "ok"}
             )
@@ -487,7 +366,13 @@ if __name__ == "__main__":
             dt = time.perf_counter() - t0
             failures.append({"url": url, "object_type": object_type, "error": str(e)})
             runtime_rows.append(
-                {"link": url, "object_type": object_type, "runtime_sec": dt, "status": "fail", "error": str(e)}
+                {
+                    "link": url,
+                    "object_type": object_type,
+                    "runtime_sec": dt,
+                    "status": "fail",
+                    "error": str(e),
+                }
             )
             print(f"[FAIL] ({object_type}) {url}: {e}  ({dt:.2f}s)", file=sys.stderr)
 
@@ -503,8 +388,12 @@ if __name__ == "__main__":
     aggregate_path.write_text(json.dumps(aggregate, indent=2, ensure_ascii=False))
     print(f"\nAggregate written to: {aggregate_path}")
 
-    # --- NEW: write runtimes.json ---
-    ok_times = [r["runtime_sec"] for r in runtime_rows if r.get("status") == "ok" and isinstance(r.get("runtime_sec"), (int, float))]
+    # write runtimes.json
+    ok_times = [
+        r["runtime_sec"]
+        for r in runtime_rows
+        if r.get("status") == "ok" and isinstance(r.get("runtime_sec"), (int, float))
+    ]
     avg = (sum(ok_times) / len(ok_times)) if ok_times else None
 
     runtimes_out = {
